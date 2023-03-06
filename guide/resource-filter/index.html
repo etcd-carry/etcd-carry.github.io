@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>过滤规则 | Etcd-Carry</title>
+    <meta name="generator" content="VuePress 1.9.8">
+    <link rel="icon" href="/img/logo.png">
+    <meta name="description" content="etcd mirror,etcd sync,etcd backup,etcd restore">
+    <meta name="keywords" content="etcd,mirror,sync,backup,restore">
+    
+    <link rel="preload" href="/assets/css/0.styles.8bb3b211.css" as="style"><link rel="preload" href="/assets/js/app.bf32c10d.js" as="script"><link rel="preload" href="/assets/js/2.5cbb8c73.js" as="script"><link rel="preload" href="/assets/js/14.b4d96893.js" as="script"><link rel="prefetch" href="/assets/js/10.c5218981.js"><link rel="prefetch" href="/assets/js/11.4569b45a.js"><link rel="prefetch" href="/assets/js/12.1d23b21d.js"><link rel="prefetch" href="/assets/js/13.284058a5.js"><link rel="prefetch" href="/assets/js/15.6f51bb16.js"><link rel="prefetch" href="/assets/js/16.63fcc979.js"><link rel="prefetch" href="/assets/js/3.90c9d11c.js"><link rel="prefetch" href="/assets/js/4.17f0785b.js"><link rel="prefetch" href="/assets/js/5.b7f4f215.js"><link rel="prefetch" href="/assets/js/6.e7a839bf.js"><link rel="prefetch" href="/assets/js/7.03cd4463.js"><link rel="prefetch" href="/assets/js/8.b5fcf3c6.js"><link rel="prefetch" href="/assets/js/9.1feadb48.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.8bb3b211.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/img/logo.png" alt="Etcd-Carry" class="logo"> <span class="site-name can-hide">Etcd-Carry</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">
+  文档
+</a></div><div class="nav-item"><a href="/blog/" class="nav-link">
+  博客
+</a></div> <a href="https://github.com/etcd-carry/etcd-carry" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><a href="/guide/" class="nav-link router-link-active">
+  文档
+</a></div><div class="nav-item"><a href="/blog/" class="nav-link">
+  博客
+</a></div> <a href="https://github.com/etcd-carry/etcd-carry" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>介绍</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/" aria-current="page" class="sidebar-link">关于Etcd-Carry</a></li><li><a href="/guide/architecture/" class="sidebar-link">架构原理</a></li><li><a href="/guide/rule/" class="sidebar-link">关于过滤规则</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>安装</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/binary-install/" class="sidebar-link">通过源码安装</a></li><li><a href="/guide/helm-install/" class="sidebar-link">通过helm安装</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>使用</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/guide/config/" class="sidebar-link">命令行参数</a></li><li><a href="/guide/resource-filter/" aria-current="page" class="active sidebar-link">过滤规则</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/guide/resource-filter/#优先级" class="sidebar-link">优先级</a></li><li class="sidebar-sub-header"><a href="/guide/resource-filter/#标签" class="sidebar-link">标签</a></li><li class="sidebar-sub-header"><a href="/guide/resource-filter/#namespace" class="sidebar-link">namespace</a></li><li class="sidebar-sub-header"><a href="/guide/resource-filter/#group" class="sidebar-link">group</a></li><li class="sidebar-sub-header"><a href="/guide/resource-filter/#resources" class="sidebar-link">resources</a></li><li class="sidebar-sub-header"><a href="/guide/resource-filter/#excludes" class="sidebar-link">excludes</a></li><li class="sidebar-sub-header"><a href="/guide/resource-filter/#示例" class="sidebar-link">示例</a></li></ul></li><li><a href="/guide/quick-start/" class="sidebar-link">快速开始</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="frontmatter-title"><a href="#frontmatter-title" class="header-anchor">#</a> 过滤规则</h1> <p></p><div class="table-of-contents"><ul><li><a href="#优先级">优先级</a><ul><li><a href="#sequential">sequential</a></li><li><a href="#secondary">secondary</a></li></ul></li><li><a href="#标签">标签</a><ul><li><a href="#labelselectors">labelSelectors</a></li><li><a href="#namespaceselectors">namespaceSelectors</a></li><li><a href="#fieldselectors">fieldSelectors</a></li></ul></li><li><a href="#namespace">namespace</a></li><li><a href="#group">group</a></li><li><a href="#resources">resources</a></li><li><a href="#excludes">excludes</a><ul><li><a href="#resource">resource</a></li><li><a href="#namespace">namespace</a></li><li><a href="#name">name</a></li><li><a href="#labelselectors">labelSelectors</a></li></ul></li><li><a href="#示例">示例</a></li></ul></div><p></p> <p>这里主要介绍过滤规则的使用，支持按namespace、type、labels过滤etcd集群中的k8s数据。如果规则文件中未配置任何规则，则不会进行任何数据的同步。</p> <div class="custom-block tip"><p class="custom-block-title">提示</p> <p>当前过滤规则主要适用于过滤etcd中的Kubernetes数据。</p></div> <p>过滤规则配置文件是yaml格式的，基本结构如下：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token key atrule">filters</span><span class="token punctuation">:</span>
+  <span class="token key atrule">sequential</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token key atrule">secondary</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h2 id="优先级"><a href="#优先级" class="header-anchor">#</a> 优先级</h2> <h3 id="sequential"><a href="#sequential" class="header-anchor">#</a> sequential</h3> <p>这部分用于配置需要被优先同步的数据，适用于对数据同步有顺序要求的场景。</p> <h3 id="secondary"><a href="#secondary" class="header-anchor">#</a> secondary</h3> <p>这部分是同步次优先级的数据，在<code>sequential</code>部分的数据同步完成后，才开始该部分的数据同步。</p> <h2 id="标签"><a href="#标签" class="header-anchor">#</a> 标签</h2> <p>支持三种标签：</p> <ol><li>labelSelectors</li> <li>namespaceSelectors</li> <li>fieldSelectors</li></ol> <p>标签匹配规则格式如下，支持多个规则，多个规则满足其一则代表匹配成功：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> // 标签的key
+    <span class="token key atrule">operator</span><span class="token punctuation">:</span>  // 支持&quot;In&quot;、&quot;NotIn&quot;、&quot;Exists&quot;、&quot;DoesNotExist&quot;
+    <span class="token key atrule">values</span><span class="token punctuation">:</span> // 标签的value
+      <span class="token punctuation">-</span> xx
+      <span class="token punctuation">-</span> xxx
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h3 id="labelselectors"><a href="#labelselectors" class="header-anchor">#</a> labelSelectors</h3> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 符合下面标签规则的数据将会被同步。</span>
+<span class="token key atrule">labelSelectors</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> etcd<span class="token punctuation">-</span>carry.io/test
+      <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+      <span class="token key atrule">values</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token string">&quot;true&quot;</span>
+<span class="token comment"># 即A的labels包含&quot;etcd-carry.io/test: true&quot;，那么A将会被同步。</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="namespaceselectors"><a href="#namespaceselectors" class="header-anchor">#</a> namespaceSelectors</h3> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># namespace中包含的标签符合下面规则的数据将会被同步。</span>
+<span class="token key atrule">namespaceSelectors</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> etcd<span class="token punctuation">-</span>carry.io/namespace<span class="token punctuation">-</span>kind
+      <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+      <span class="token key atrule">values</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> test1
+        <span class="token punctuation">-</span> test2
+<span class="token comment"># 即A的namespace为ns，ns中labels包含&quot;etcd-carry.io/namespace-kind: test1&quot; 或 &quot;etcd-carry.io/namespace-kind: test2&quot;，那么A将会被同步。</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><h3 id="fieldselectors"><a href="#fieldselectors" class="header-anchor">#</a> fieldSelectors</h3> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 某个字段符合下面规则的数据将会被同步</span>
+<span class="token key atrule">fieldSelectors</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> type
+      <span class="token key atrule">operator</span><span class="token punctuation">:</span> NotIn
+      <span class="token key atrule">values</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> kubernetes.io/service<span class="token punctuation">-</span>account<span class="token punctuation">-</span>token
+<span class="token comment"># 即A的&quot;type&quot;字段不为&quot;kubernetes.io/service-account-token&quot;，那么A将会被同步。</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h2 id="namespace"><a href="#namespace" class="header-anchor">#</a> namespace</h2> <p>该命名空间下的数据都会被同步到目的集群，未指定namespace则代表所有命名空间。即使同时指定了<code>namespaceSelectors</code>，也只匹配<code>namespace</code>。</p> <h2 id="group"><a href="#group" class="header-anchor">#</a> group</h2> <p>k8s资源所属的apiGroup，&quot;*&quot;代表所有apiGroup。</p> <h2 id="resources"><a href="#resources" class="header-anchor">#</a> resources</h2> <p>同步k8s的某种资源，列表形式，格式如下：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 比如，同步CRD、Secret到目的集群</span>
+<span class="token key atrule">resources</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> apiextensions.k8s.io
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> v1beta1
+    <span class="token key atrule">kind</span><span class="token punctuation">:</span> CustomResourceDefinition
+  <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+    <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+    <span class="token key atrule">Kind</span><span class="token punctuation">:</span> Secret
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h2 id="excludes"><a href="#excludes" class="header-anchor">#</a> excludes</h2> <p>从同步数据中排除指定资源，支持多个规则，满足任意一条则不会被同步，支持以下字段：</p> <ol><li>resource</li> <li>namespace</li> <li>name</li> <li>labelSelectors</li></ol> <h3 id="resource"><a href="#resource" class="header-anchor">#</a> resource</h3> <p>排除某一种指定的资源：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 排除CRD</span>
+<span class="token key atrule">excludes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+      <span class="token key atrule">group</span><span class="token punctuation">:</span> apiextensions.k8s.io
+      <span class="token key atrule">version</span><span class="token punctuation">:</span> v1beta1
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> CustomResourceDefinition
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div><h3 id="namespace-2"><a href="#namespace-2" class="header-anchor">#</a> namespace</h3> <p>排除指定命名空间的资源，默认代表所有命名空间：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 排除test命名空间下的&quot;failover.etcd-carry.io/v1alpha1, Kind=ControllerFailOver&quot;资源</span>
+<span class="token key atrule">excludes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+      <span class="token key atrule">group</span><span class="token punctuation">:</span> failover.etcd<span class="token punctuation">-</span>carry.io
+      <span class="token key atrule">version</span><span class="token punctuation">:</span> v1alpha1
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> ControllerFailOver
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> test
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div><h3 id="name"><a href="#name" class="header-anchor">#</a> name</h3> <p>排除指定名称的资源：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 排除test命名空间下名为etcd-carry的Secret资源</span>
+<span class="token key atrule">excludes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+      <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+      <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> etcd<span class="token punctuation">-</span>carry
+    <span class="token key atrule">namespace</span><span class="token punctuation">:</span> test
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><h3 id="labelselectors-2"><a href="#labelselectors-2" class="header-anchor">#</a> labelSelectors</h3> <p>排除符合标签规则的资源：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token comment"># 排除labels中包含&quot;app.etcd-carry.io/required-on-controller: true&quot;标签项的&quot;app.etcd-carry.io/v1beta1, Kind=Cell&quot;资源</span>
+<span class="token key atrule">excludes</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+      <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;app.etcd-carry.io&quot;</span>
+      <span class="token key atrule">version</span><span class="token punctuation">:</span> v1beta1
+      <span class="token key atrule">kind</span><span class="token punctuation">:</span> Cell
+    <span class="token key atrule">labelSelectors</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+          <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> app.etcd<span class="token punctuation">-</span>carry.io/required<span class="token punctuation">-</span>on<span class="token punctuation">-</span>controller
+            <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+            <span class="token key atrule">values</span><span class="token punctuation">:</span>
+              <span class="token punctuation">-</span> <span class="token string">&quot;true&quot;</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div><h2 id="示例"><a href="#示例" class="header-anchor">#</a> 示例</h2> <p>通过下面的示例来说明过滤规则：</p> <div class="language-yaml line-numbers-mode"><pre class="language-yaml"><code><span class="token key atrule">filters</span><span class="token punctuation">:</span>
+  <span class="token comment"># 首先sequential中的CRD资源，以及带有&quot;test.io/namespace-kind: unique&quot;标签项的namespace资源会被优先同步到目的集群</span>
+  <span class="token key atrule">sequential</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> apiextensions.k8s.io
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> apiextensions.k8s.io
+          <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">kind</span><span class="token punctuation">:</span> CustomResourceDefinition
+    <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">kind</span><span class="token punctuation">:</span> Namespace
+      <span class="token key atrule">labelSelectors</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> test.io/namespace<span class="token punctuation">-</span>kind
+              <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+              <span class="token key atrule">values</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> unique
+  <span class="token comment"># sequential中的CRD、Namespace同步完成后，开始同步符合secondary中规则的资源</span>
+  <span class="token key atrule">secondary</span><span class="token punctuation">:</span>
+    <span class="token comment"># 所属namespace的labels含有&quot;test.io/namespace-kind: unique&quot;的资源都会被同步，但labels中含有&quot;test.io/namespace-kind:&quot;标签项的Secret资源除外。</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;*&quot;</span>
+      <span class="token key atrule">namespaceSelectors</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> test.io/namespace<span class="token punctuation">-</span>kind
+              <span class="token key atrule">operator</span><span class="token punctuation">:</span> In
+              <span class="token key atrule">values</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> unique
+      <span class="token key atrule">excludes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+            <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+            <span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+          <span class="token key atrule">labelSelectors</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> test.io/namespace<span class="token punctuation">-</span>kind
+                  <span class="token key atrule">operator</span><span class="token punctuation">:</span> Exists
+    <span class="token comment"># unit-test命名空间下type不为&quot;kubernetes.io/service-account-token&quot;的Secret资源都会被同步，但unit-test命名空间下名为exclude-me-secret的Secret除外。</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">Kind</span><span class="token punctuation">:</span> Secret
+      <span class="token key atrule">namespace</span><span class="token punctuation">:</span> unit<span class="token punctuation">-</span>test
+      <span class="token key atrule">fieldSelectors</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> type
+              <span class="token key atrule">operator</span><span class="token punctuation">:</span> NotIn
+              <span class="token key atrule">values</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> kubernetes.io/service<span class="token punctuation">-</span>account<span class="token punctuation">-</span>token
+      <span class="token key atrule">excludes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">resource</span><span class="token punctuation">:</span>
+            <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+            <span class="token key atrule">kind</span><span class="token punctuation">:</span> Secret
+          <span class="token key atrule">name</span><span class="token punctuation">:</span> exclude<span class="token punctuation">-</span>me<span class="token punctuation">-</span>secret
+          <span class="token key atrule">namespace</span><span class="token punctuation">:</span> unit<span class="token punctuation">-</span>test
+    <span class="token comment"># unit-test命名空间下labels包含&quot;test.io/namespace-kind:&quot;标签项的ConfigMap资源都会被同步。</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+      <span class="token key atrule">namespace</span><span class="token punctuation">:</span> unit<span class="token punctuation">-</span>test
+      <span class="token key atrule">labelSelectors</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> test.io/namespace<span class="token punctuation">-</span>kind
+              <span class="token key atrule">operator</span><span class="token punctuation">:</span> Exists
+    <span class="token comment"># 集群中所有labels包含&quot;test.io/namespace-kind&quot;标签项的Service资源都会被同步。</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">group</span><span class="token punctuation">:</span> <span class="token string">&quot;&quot;</span>
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">version</span><span class="token punctuation">:</span> v1
+          <span class="token key atrule">kind</span><span class="token punctuation">:</span> Service
+      <span class="token key atrule">labelSelectors</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> <span class="token key atrule">matchExpressions</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> <span class="token key atrule">key</span><span class="token punctuation">:</span> test.io/namespace<span class="token punctuation">-</span>kind
+              <span class="token key atrule">operator</span><span class="token punctuation">:</span> Exists
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br></div></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">2/24/2023, 5:25:10 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/guide/config/" class="prev">
+        命令行参数
+      </a></span> <span class="next"><a href="/guide/quick-start/">
+        快速开始
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.bf32c10d.js" defer></script><script src="/assets/js/2.5cbb8c73.js" defer></script><script src="/assets/js/14.b4d96893.js" defer></script>
+  </body>
+</html>
